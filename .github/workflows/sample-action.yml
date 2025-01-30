@@ -1,13 +1,30 @@
 name: Sample Action
 
-on: [push]
+on:
+  push
 
 jobs:
   sample_job:
-    name: Sample Job
     runs-on: ubuntu-latest
+
     steps:
       - run: echo "checkout ${{ github.repository }}"
-      - name: Check out repository code
+
+      # リポジトリのチェックアウト
+      - name: Checkout repository code
         uses: actions/checkout@v4
+
+      # pythonのセットアップ
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12' # バージョンを指定
+
+      # 
+      - name: Prepare to scan
+        run: |
+          pip install setuptools
+          pip cache purge
+          pip install --force-reinstall -r requirements.txt
+
       - run: ls ${{ github.workspace }}
