@@ -1,8 +1,10 @@
 name: Sample Action
-run-name: sample
+
 on: [push]
+
 jobs:
-  Explore-GitHub-Actions:
+  sample_job:
+    name: Sample Job
     runs-on: ubuntu-latest
     steps:
       - run: echo "checkout ${{ github.repository }}"
